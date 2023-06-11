@@ -1,4 +1,4 @@
-package com.qubitfaruk.realestateproject.Entity;
+package com.qubitfaruk.realestateproject.Entity.enums;
 
 public enum CustomerType {
     REAL_ESTATE,

@@ -1,21 +1,20 @@
 package com.qubitfaruk.realestateproject.AOP.Attributes.Validation;
 
-import com.qubitfaruk.realestateproject.AOP.CrossCuttingConcerns.Validation.CustomerValidator;
+import com.qubitfaruk.realestateproject.AOP.CrossCuttingConcerns.Validation.CustomerAddValidator;
+import com.qubitfaruk.realestateproject.Business.Constants.Messages;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
-import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-@Target({TYPE, FIELD})
+@Target({TYPE})
 @Retention(RUNTIME)
-@Constraint(validatedBy = {CustomerValidator.class})
+@Constraint(validatedBy = {CustomerAddValidator.class})
 
-
-public @interface CustomerValidationRules {
-    String message() default "";
+public @interface CustomerAddValidationRules {
+    String message() default Messages.customerEmailMustBeUnique;
 
     Class<?>[] groups() default { };
     Class<? extends Payload>[] payload() default { };

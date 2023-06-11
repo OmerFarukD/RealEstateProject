@@ -5,16 +5,18 @@ import com.qubitfaruk.realestateproject.Dto.RequestDtos.Customer.CustomerAddDto;
 import com.qubitfaruk.realestateproject.Persistence.Contrats.CustomerRepository;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
-public class CustomerValidator implements ConstraintValidator<CustomerAddValidationRules, CustomerAddDto> {
+import org.springframework.beans.factory.annotation.Autowired;
 
-    private final CustomerRepository customerRepository;
+
+public class CustomerAddValidator implements ConstraintValidator<CustomerAddValidationRules, CustomerAddDto> {
+
+    @Autowired
+    private  CustomerRepository customerRepository;
     @Override
     public boolean isValid(CustomerAddDto customerAddDto, ConstraintValidatorContext constraintValidatorContext) {
-
-        var data= customerRepository.countCustomerByEmail(customerAddDto.email());
+        var data= customerRepository.findAll().stream().filter(x->x.getEmail().equals(customerAddDto.getEmail()))
+                .count();
         return data <= 1;
     }
 }
