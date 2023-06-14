@@ -30,8 +30,8 @@ public class CustomerApi {
         return ResponseEntity.status(HttpStatus.CREATED).body(data);
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<Result> delete(@RequestParam int id) throws BusinessException {
+    @PostMapping("/delete")
+    public ResponseEntity<Result> delete(@RequestParam Integer id) throws BusinessException {
         var data=this.customerService.deleteCustomer(id);
         return ResponseEntity.status(HttpStatus.OK).body(data);
     }

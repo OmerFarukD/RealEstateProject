@@ -37,7 +37,7 @@ public class RealEstate {
     @Enumerated(EnumType.STRING)
     private RealEstateType realEstateType;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
     private Customer customer;
 

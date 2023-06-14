@@ -25,5 +25,6 @@ DataResult<List<RealEstateResponseDto>> getAllByWarmingType(WarmingType warmingT
 DataResult<List<RealEstateResponseDto>> getAllByRealEstateType(RealEstateType realEstateType);
 DataResult<List<RealEstateDetailDto>> getAllDetails();
 DataResult<List<RealEstateDetailDto>> getAllDetailsById(int id) throws BusinessException;
+DataResult<RealEstateDetailDto> getDetailsByRealEstateId(int realEstateId) throws BusinessException;
 
 }

@@ -38,7 +38,6 @@ public class Messages {
     public static String workPlaceDeleted(int id){
         return "İş yeri Id : "+id+"silindi";
     }
-
     public static final String buildingFloorsLessThanOrEqualNumberOfFloors="Emlağın bulunduğu kat toplam kat sayısından az veya eşit olmalıdır";
     public static String realEstateAdd="Emlak eklendi.";
     public static String realEstateUpdate="Emlak eklendi.";

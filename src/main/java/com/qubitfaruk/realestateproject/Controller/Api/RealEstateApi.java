@@ -20,6 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/realEstates")
+//@CrossOrigin
 public class RealEstateApi {
     private final RealEstateService realEstateService;
 
@@ -40,7 +41,7 @@ public class RealEstateApi {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<Result> delete(@RequestParam int id) throws BusinessException {
+    public ResponseEntity<Result> delete(@RequestParam Integer id) throws BusinessException {
         var data= this.realEstateService.deleteRealEstate(id);
         return ResponseEntity.status(HttpStatus.OK).body(data);
     }
@@ -96,6 +97,11 @@ public class RealEstateApi {
     @GetMapping("/getbyrealestate")
     ResponseEntity<DataResult<List<RealEstateResponseDto>>> getAllByRealEstateType(@RequestParam RealEstateType realEstateType){
         var data=this.realEstateService.getAllByRealEstateType(realEstateType);
+        return ResponseEntity.status(HttpStatus.OK).body(data);
+    }
+    @GetMapping("/getdetailbyrealestate")
+    ResponseEntity<DataResult<RealEstateDetailDto>> getDetailByRealEstateId(@RequestParam int id) throws BusinessException{
+        var data=this.realEstateService.getDetailsByRealEstateId(id);
         return ResponseEntity.status(HttpStatus.OK).body(data);
     }
 

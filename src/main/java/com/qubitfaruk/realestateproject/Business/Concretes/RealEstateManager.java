@@ -10,16 +10,13 @@ import com.qubitfaruk.realestateproject.Core.Results.DataResult;
 import com.qubitfaruk.realestateproject.Core.Results.Result;
 import com.qubitfaruk.realestateproject.Core.Results.SuccessDataResult;
 import com.qubitfaruk.realestateproject.Core.Results.SuccessResult;
-import com.qubitfaruk.realestateproject.Core.SearchCriterias.SearchCriteria;
 import com.qubitfaruk.realestateproject.Dto.RequestDtos.RealEstate.RealEstateAddDto;
-import com.qubitfaruk.realestateproject.Dto.RequestDtos.RealEstate.RealEstateFilterParameters;
 import com.qubitfaruk.realestateproject.Dto.RequestDtos.RealEstate.RealEstateUpdateDto;
 import com.qubitfaruk.realestateproject.Dto.ResponseDtos.RealEstate.RealEstateDetailDto;
 import com.qubitfaruk.realestateproject.Dto.ResponseDtos.RealEstate.RealEstateResponseDto;
 import com.qubitfaruk.realestateproject.Entity.RealEstate;
 import com.qubitfaruk.realestateproject.Entity.enums.RealEstateType;
 import com.qubitfaruk.realestateproject.Entity.enums.WarmingType;
-import com.qubitfaruk.realestateproject.Persistence.Concretes.RealEstateSpecification;
 import com.qubitfaruk.realestateproject.Persistence.Contrats.RealEstateRepository;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
@@ -30,13 +27,12 @@ import java.util.List;
 public class RealEstateManager implements RealEstateService {
 
     private final RealEstateRepository realEstateRepository;
-    private final RealEstateSpecification spec;
+
 
     private final CustomerService customerService;
 
-    public RealEstateManager(RealEstateRepository realEstateRepository, RealEstateSpecification spec, CustomerService customerService) {
+    public RealEstateManager(RealEstateRepository realEstateRepository, CustomerService customerService) {
         this.realEstateRepository = realEstateRepository;
-        this.spec = spec;
         this.customerService = customerService;
     }
 
@@ -129,7 +125,15 @@ public class RealEstateManager implements RealEstateService {
         var data=this.realEstateRepository.getAllDetailsByCustomerId(id).orElseThrow(()-> new BusinessException(Messages.realEstatateDetailsListed));
         return new SuccessDataResult<>(data,Messages.realEstatateDetailsListed);
     }
-   private RealEstate setRealEstateAndCustomer(RealEstateAddDto realEstateAddDto) throws BusinessException{
+
+    @Override
+    public DataResult<RealEstateDetailDto> getDetailsByRealEstateId(int realEstateId) throws BusinessException {
+        var data= this.realEstateRepository.getByDetailDtoByRealEstateId(realEstateId)
+                .orElseThrow(()->new BusinessException(Messages.realEstateNotFound(realEstateId)));
+        return new SuccessDataResult<>(data);
+    }
+
+    private RealEstate setRealEstateAndCustomer(RealEstateAddDto realEstateAddDto) throws BusinessException{
         var data=RealEstateMapper.INSTANCE.addRequestToEntity(realEstateAddDto);
         var customerResponse=this.customerService.getById(realEstateAddDto.getCustomerId());
         if (customerResponse.isSuccess()){

@@ -6,7 +6,6 @@ import com.qubitfaruk.realestateproject.Core.Results.Result;
 import com.qubitfaruk.realestateproject.Dto.RequestDtos.WorkPlace.WorkPlaceAddDto;
 import com.qubitfaruk.realestateproject.Dto.RequestDtos.WorkPlace.WorkPlaceUpdateDto;
 import com.qubitfaruk.realestateproject.Dto.ResponseDtos.WorkPlace.WorkPlaceResponseDto;
-import jakarta.validation.Valid;
 
 import java.util.List;
 

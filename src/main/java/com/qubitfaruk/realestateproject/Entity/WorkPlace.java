@@ -23,7 +23,7 @@ public class WorkPlace {
     @Column(name = "fax")
     private String fax;
 
-    @OneToMany(mappedBy = "workPlace")
+    @OneToMany(mappedBy = "workPlace",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Customer> customers;
 
     public List<Customer> getCustomers() {

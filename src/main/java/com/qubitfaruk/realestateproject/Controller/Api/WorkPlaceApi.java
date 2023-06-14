@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/workplace")
+//@CrossOrigin
 public class WorkPlaceApi {
 
     private final WorkPlaceService workPlaceService;
@@ -42,7 +43,7 @@ public class WorkPlaceApi {
         return ResponseEntity.status(HttpStatus.OK).body(data);
     }
     @DeleteMapping("/delete")
-    public ResponseEntity<Result> delete(@RequestParam int id) throws BusinessException {
+    public ResponseEntity<Result> delete(@RequestParam Integer id) throws BusinessException {
         var data=this.workPlaceService.deleteWorkPlace(id);
         return ResponseEntity.status(HttpStatus.OK).body(data);
     }

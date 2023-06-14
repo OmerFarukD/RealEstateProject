@@ -7,10 +7,12 @@ import com.qubitfaruk.realestateproject.Entity.enums.WarmingType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public interface RealEstateRepository extends JpaRepository<RealEstate,Integer>{
 
     @Query("select new com.qubitfaruk.realestateproject.Dto.ResponseDtos.RealEstate" +
@@ -36,4 +38,9 @@ public interface RealEstateRepository extends JpaRepository<RealEstate,Integer>{
 
     List<RealEstate> getAllByWarmingType(WarmingType warmingType);
     List<RealEstate> getAllByRealEstateType(RealEstateType realEstateType);
+    @Query("select  new com.qubitfaruk.realestateproject.Dto.ResponseDtos.RealEstate" +
+            ".RealEstateDetailDto" +
+            "(c.customerId,c.name,c.surname,r.title,r.description,r.realEstateId,r.m2,r.numberOfRooms,r.numberOfFloors,r.buildingFloor,r.warmingType,r.realEstateType) " +
+            " from  Customer c inner  join c.realEstates r where r.realEstateId=:realEstateId")
+    Optional<RealEstateDetailDto> getByDetailDtoByRealEstateId(int realEstateId);
 }
